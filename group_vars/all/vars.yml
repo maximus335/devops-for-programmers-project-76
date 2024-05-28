@@ -1,0 +1,5 @@
+redmine_db_postgres: rc1d-3kxj4gtcq0crjr11.mdb.yandexcloud.net
+redmina_db_port: "6432"
+redmine_db_username: user1
+redmine_db_database: db1
+redmine_db_password: "{{ vault_redmine_db_password }}"

@@ -10,4 +10,4 @@
 
 ## Команды запуска
 - `make setup` - используя `ansible`, устанавливает `python docker`, необходимый далее
-- `make redmine` - используя `ansible`, запускает образ `redmine`, доступный по адресу https://maximus335.ru
+- `make start` - используя `ansible`, запускает образ `redmine`, доступный по адресу https://maximus335.ru

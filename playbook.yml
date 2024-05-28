@@ -14,6 +14,8 @@
         path: /usr/lib/python3.11/EXTERNALLY-MANAGED
         state: absent
       become: yes
+      tags:
+        - setup
 
     - pip:
         name: docker
@@ -27,11 +29,16 @@
         image: redmine
         published_ports: 80:3000
         env:
-          REDMINE_DB_POSTGRES: "{{ REDMINE_DB_POSTGRES }}"
-          REDMINE_DB_PORT: "{{ REDMINE_DB_PORT }}"
-          REDMINE_DB_USERNAME: "{{ REDMINE_DB_USERNAME }}"
-          REDMINE_DB_DATABASE: "{{ REDMINE_DB_DATABASE }}"
-          REDMINE_DB_PASSWORD: "{{ REDMINE_DB_PASSWORD }}"
+          REDMINE_DB_POSTGRES: "{{ redmine_db_postgres }}"
+          REDMINE_DB_PORT: "{{ redmina_db_port }}"
+          REDMINE_DB_USERNAME: "{{ redmine_db_username }}"
+          REDMINE_DB_DATABASE: "{{ redmine_db_database }}"
+          REDMINE_DB_PASSWORD: "{{ redmine_db_password }}"
       become: yes
-      tags:
-        - redmine
+
+- hosts: webservers
+  tasks:
+    - name: start datadog
+      import_role:
+        name: datadog.datadog
+      become: yes

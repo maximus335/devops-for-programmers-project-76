@@ -1,5 +1,7 @@
-REDMINE_DB_POSTGRES: rc1d-3kxj4gtcq0crjr11.mdb.yandexcloud.net
-REDMINE_DB_PORT: "6432"
-REDMINE_DB_USERNAME: user1
-REDMINE_DB_DATABASE: db1
-REDMINE_DB_PASSWORD: "{{ vault_REDMINE_DB_PASSWORD }}"
+datadog_api_key: "{{ vault_datadog_api_key }}"
+datadog_site: datadoghq.eu
+datadog_checks:
+  http_check:
+    instances:
+      - name: redmine instance
+        url: http://localhost:3000
