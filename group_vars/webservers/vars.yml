@@ -4,4 +4,4 @@ datadog_checks:
   http_check:
     instances:
       - name: redmine instance
-        url: http://localhost:3000
+        url: http://localhost:{{ redmine_port }}

@@ -20,10 +20,11 @@
       community.docker.docker_container:
         name: redmine
         image: redmine
-        published_ports: 80:3000
+        published_ports: "80:{{ redmine_port }}"
         env_file: .env
 
 - hosts: webservers
+  become: yes
   tasks:
     - name: start datadog
       import_role:
