@@ -1,44 +1,30 @@
 - hosts: all
+  become: yes
+
+  roles:
+    - geerlingguy.pip
 
   tasks:
-    - apt:
-        name: python3-pip
-        update_cache: yes
-        cache_valid_time: 604800 # 1 week
-      become: yes
-      tags:
-        - setup
-
-    - name: Ignore PEP 668 because it's silly.
-      ansible.builtin.file:
-        path: /usr/lib/python3.11/EXTERNALLY-MANAGED
-        state: absent
-      become: yes
-      tags:
-        - setup
-
-    - pip:
+    - name: pip
+      pip:
         name: docker
-      become: yes
       tags:
         - setup
+    - name: create .env
+      ansible.builtin.template:
+        src: template.env.j2
+        dest: .env
+        mode: '0644'
 
     - name: start redmine container
       community.docker.docker_container:
         name: redmine
         image: redmine
         published_ports: 80:3000
-        env:
-          REDMINE_DB_POSTGRES: "{{ redmine_db_postgres }}"
-          REDMINE_DB_PORT: "{{ redmina_db_port }}"
-          REDMINE_DB_USERNAME: "{{ redmine_db_username }}"
-          REDMINE_DB_DATABASE: "{{ redmine_db_database }}"
-          REDMINE_DB_PASSWORD: "{{ redmine_db_password }}"
-      become: yes
+        env_file: .env
 
 - hosts: webservers
   tasks:
     - name: start datadog
       import_role:
         name: datadog.datadog
-      become: yes
