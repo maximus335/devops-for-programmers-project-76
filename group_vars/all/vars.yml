@@ -3,4 +3,4 @@ redmina_db_port: "6432"
 redmine_db_username: user1
 redmine_db_database: db1
 redmine_db_password: "{{ vault_redmine_db_password }}"
-redmine_port: "3000"
+redmine_port: "80"

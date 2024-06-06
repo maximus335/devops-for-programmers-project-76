@@ -20,7 +20,7 @@
       community.docker.docker_container:
         name: redmine
         image: redmine
-        published_ports: "80:{{ redmine_port }}"
+        published_ports: "{{ redmine_port }}:3000"
         env_file: .env
 
 - hosts: webservers
